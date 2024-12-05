@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Delights Menu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
+</head>
+<body>
+    <header class="text-center py-4">
+        <img src="images/logo.png" alt="Gourmet Delights Logo" class="logo">
+        <h1>Gourmet Delights</h1>
+    </header>
+
+    <div class="container">
+        <div class="row" id="menu">
+            <!-- Menu items will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>Contact Us: +1-555-123-4567 | Address: 456 Culinary Avenue, Foodie City, FL 12345</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "menu.xml",
+                dataType: "xml",
+                success: function(xml) {
+                    $(xml).find('item').each(function(){
+                        var name = $(this).find('name').text();
+                        var price = $(this).find('price').text();
+                        var image = $(this).find('image').text();
+
+                        var itemHtml = `
+                        <div class="card-layout col-md-4">
+                            <div class="card mb-4">
+                                <img src="${image}" class="card-img-top" alt="${name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${name}</h5>
+                                    <p class="card-text">${price}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                        $('#menu').append(itemHtml);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

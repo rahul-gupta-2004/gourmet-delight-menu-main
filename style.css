@@ -1,0 +1,53 @@
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.logo {
+  max-width: 100px;
+}
+header {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.container {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-layout {
+  padding-bottom: 1.5rem;
+}
+.card {
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  color: #333;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.card-img-top {
+  max-height: 200px;
+  object-fit: cover;
+}
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+footer p {
+  margin: 0;
+}

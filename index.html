@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explore the delicious and diverse menu at Gourmet Delights Restaurant. Discover a wide range of gourmet dishes, crafted with the finest ingredients to satisfy your culinary cravings.">
+    <title>Gourmet Delights Menu</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/logo.webp" type="image/webp">
+</head>
+
+<body>
+    <header class="text-center py-4" aria-label="Gourmet Delights Logo and Title">
+        <picture>
+            <source srcset="images/logo.webp" type="image/webp">
+            <img src="images/logo.jpg" alt="Gourmet Delights Logo" class="logo" aria-hidden="true">
+        </picture>
+        <h1 aria-label="Gourmet Delights Restaurant">Gourmet Delights</h1>
+    </header>
+    <div class="container">
+        <div class="row" id="menu" aria-label="Menu items"></div>
+    </div>
+    <footer class="text-center py-4" aria-label="Contact Information">
+        <p aria-label="Contact Us: +1-555-123-4567, Address: 456 Culinary Avenue, Foodie City, FL 12345">Contact
+            Us:+1-555-123-4567|Address:456 Culinary Avenue,Foodie City,FL 12345</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET", 
+                url: "menu.xml", 
+                dataType: "xml", 
+                success: function (xml) {
+                    $(xml).find('item').each(function () {
+                        var name = $(this).find('name').text();
+                        var price = $(this).find('price').text();
+                        var image = $(this).find('image').text();
+                        var imagePathWebP = "images/" + image.replace(/\.[^/.]+$/, "") + ".webp";
+                        var imagePathFallback = "images/" + image;
+                        var itemHtml = `
+                            <div class="card-layout col-md-4" aria-label="Menu item: ${name}">
+                                <div class="card mb-4">
+                                    <picture>
+                                        <source srcset="${imagePathWebP}" type="image/webp">
+                                        <img src="${imagePathFallback}" class="card-img-top" alt="${name}" loading="lazy">
+                                    </picture>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${name}</h5>
+                                        <p class="card-text">${price}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+                        $('#menu').append(itemHtml);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
